@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="."  name="jaxb"  default="compile">
+
+    <path id="compile.classpath">
+    <!--
+        <pathelement location="c:\tools\josql\JoSQL-2.2\JoSQL-2.2.jar"/>    
+     -->
+    </path>
+  
+    <path id="run.classpath">
+        <pathelement location="build"/>
+        <path refid="compile.classpath"/>
+    </path>
+    
+    <target name="init">
+        <mkdir dir="build"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+    
+    <target name="compile" depends="clean, init">
+        <echo message="${ant.project.name}"/>
+        <javac destdir="build" deprecation="on" debug="on">
+            <src path="src"/>
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+    
+    <target name="run">
+        <java classname="com.home.JavaToXml" failonerror="true" fork="yes">
+            <classpath refid="run.classpath"/>
+        </java>
+        
+        <java classname="com.home.XmlToJava" failonerror="true" fork="yes">
+            <classpath refid="run.classpath"/>
+        </java>        
+    </target>
+
+   
+</project>
